@@ -36,6 +36,10 @@ import com.empresa.domain.service.CadastroFuncionarioService;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "Funcionarios")
 @RestController
 @RequestMapping("/funcionarios")
 public class FuncionarioController {
@@ -50,17 +54,20 @@ public class FuncionarioController {
 	private SmartValidator validator;
 	
 	@GetMapping
+	@ApiOperation("Lista todos os funcionarios resumidos")
 	public List<FuncionarioDTO> listar(){
 		return funcionarioRepository.listar();
 	}
 	
 	@GetMapping("/{funcionarioId}")
+	@ApiOperation("Consulta um funcionario completo")
 	public Funcionario buscarPorId(@PathVariable Long funcionarioId) {
 		
 		return cadastroFuncionarioService.buscarPorId(funcionarioId);
 	}
 	
 	@PostMapping
+	@ApiOperation("Salva um funcionario")
 	public Funcionario salvar(@RequestBody @Valid Funcionario funcionario){
 		try {
 			return cadastroFuncionarioService.salvar(funcionario);
@@ -71,17 +78,20 @@ public class FuncionarioController {
 	
 	@DeleteMapping("/{funcionarioId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation("Exclui um funcionario")
 	public void remover(@PathVariable Long funcionarioId) {
 		cadastroFuncionarioService.excluir(funcionarioId);
 	}
 	
 	@PutMapping("/{funcionarioId}")
+	@ApiOperation("Atualia um funcionario completo")
 	public Funcionario atualizar(@PathVariable Long funcionarioId, @RequestBody @Valid Funcionario funcionario) {
 		
 		return cadastroFuncionarioService.atualizar(funcionarioId, funcionario);
 	}
 	
 	@PatchMapping("/{funcionarioId}")
+	@ApiOperation("Atualia um funcionario parcial")
 	public Funcionario atualizarParcial(@PathVariable Long funcionarioId,
 			@RequestBody Map<String, Object> dados, HttpServletRequest request){
 		

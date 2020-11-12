@@ -20,6 +20,10 @@ import com.empresa.domain.repository.DepartamentoRepository;
 import com.empresa.domain.service.CadastroDepartamentoService;
 import com.empresa.domain.service.CadastroFuncionarioService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(tags = "Departamentos")
 @RestController
 @RequestMapping("/departamentos")
 public class DepartamentoController {
@@ -34,26 +38,31 @@ public class DepartamentoController {
 	private CadastroFuncionarioService cadastroFuncionarioService;
 	
 	@GetMapping
+	@ApiOperation("Lista os departamentos resumidos")
 	public List<DepartamentoDTO> listar() {
 		return departamentoRepository.listar();
 	}
 	
 	@GetMapping("/{departamentoId}")
+	@ApiOperation("Consulta um departamento completo por id")
 	public Departamento consultarPorId(@PathVariable Long departamentoId){
 		return cadastroDepartamentoService.consultarPorId(departamentoId);
 	}
 	
 	@GetMapping("/{departamentoId}/funcionarios")
+	@ApiOperation("Consulta um departamento resumido com a lista de funcionários")
 	public DepartamentoDTO consultarPorIdFuncionarios(@PathVariable Long departamentoId){
 		return cadastroDepartamentoService.consultarResumido(departamentoId);
 	}
 	
 	@PutMapping("/{departamentoId}")
+	@ApiOperation("Atualiza um departamento completo")
 	public Departamento atualizar(@PathVariable Long departamentoId, @RequestBody @Valid Departamento departamento) {
 		return cadastroDepartamentoService.atualizar(departamentoId, departamento);
 	}
 	
 	@PutMapping("/{departamentoId}/atualiza-chefe")
+	@ApiOperation("Atualiza o chefe de um departamento")
 	public Departamento definirChefe(@PathVariable Long departamentoId, 
 			@Param("chefeId") Long chefeId) {
 		
