@@ -16,7 +16,7 @@ Para iniciar o desenvolvimento, é necessário clonar o projeto do GitHub num di
 
 ```shell
 cd "diretorio de sua preferencia"
-git clone https://github.com/gleisonfreitas/empresa-api
+git clone https://github.com/gleisonfreitas/empresa-api.git
 ```
 
 ## Configuração
